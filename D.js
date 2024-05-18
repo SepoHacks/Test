@@ -70,7 +70,7 @@
                 this.$refs.dices[i].roll = function () {
                   this.result = 6; // Always roll a 6
                 };
-                //this.$refs.dices[i].roll(); // Call the overridden roll method
+                this.$refs.dices[i].roll(); // Call the overridden roll method
               }
             },
             resetDices() {
