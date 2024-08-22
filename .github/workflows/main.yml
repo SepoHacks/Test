@@ -1,7 +1,4 @@
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   build:
@@ -13,22 +10,32 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: test
           MYSQL_DATABASE: test
-          MYSQL_USER: test
-          MYSQL_PASSWORD: test
         ports:
-          - "3306:3306"
-          
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run health checks
-        run: node app.js
+    - name: Wait for MySQL to be ready
+      run: |
+        until mysqladmin ping -h"127.0.0.1" --silent; do
+          echo 'waiting for mysql...'
+          sleep 5
+        done
+
+    - name: Run tests
+      run: npm test
