@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22-04
 
     services:
       mysql:
@@ -13,8 +13,10 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: test
           MYSQL_DATABASE: test
+          MYSQL_USER: test
+          MYSQL_PASSWORD: test
         ports:
-          - 3306:3306
+          - "3306:3306"
           
     steps:
       - name: Checkout code
