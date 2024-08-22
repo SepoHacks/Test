@@ -21,6 +21,7 @@ const checkServiceHealth = async (url, expectedMessage, errorMessage) => {
 const runHealthChecks = async () => {
   await checkServiceHealth(`http://localhost:${port}/db`, 'DB connection is OK', 'Mysql is not working');
   await checkServiceHealth(`http://localhost:${port}/`, 'Hello to CI/CD', 'App is not working');
+  process.exit(0);
 };
 
 runHealthChecks();
