@@ -1,24 +1,34 @@
 const express = require("express");
-const mysql = require("mysql2/promise");
+const mysql = require("mysql2");
 
 const app = express();
-const port = 3000;
+const port = process.env.port || 3000;
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
   host: "localhost",
-  user: "test",
+  user: "root",
   password: "test",
   database: "test",
 });
 
-app.get("/db", async (req, res) => {
-  try {
-    const [result] = await db.query("SELECT 1 AS result");
-    res.json({ message: "DB connection is OK" });
-  } catch (error) {
-    console.error("Mysql error");
-    res.status(500).send("Mysql error!");
+db.connect((err) => {
+  if (err) {
+    console.error("Mysql connection error");
+    process.exit(1);
   }
+
+  console.log("Connected to Mysql");
+});
+
+app.get("/db", async (req, res) => {
+  db.query("SELECT 1 AS result", (err, results) => {
+    if (err) {
+      console.error("Mysql query error");
+      res.status(500).send("Mysql query error!");
+    }
+
+    res.json({ message: "DB connection is OK" });
+  });
 });
 
 app.get("/", (req, res) => {
