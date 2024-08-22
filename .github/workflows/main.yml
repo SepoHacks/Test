@@ -1,12 +1,32 @@
 on:
   push:
     branches:
-    - main
-jobs:
-  my_job:
-    name: deploy to staging
-    runs-on: ubuntu-22.04
+      - main
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: testdb
+        ports:
+          - 3306:3306
+          
     steps:
-      - name: test
-        run: echo "hello"
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run health checks
+        run: node tests/test.js
