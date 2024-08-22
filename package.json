@@ -1,0 +1,16 @@
+{
+  "name": "cicdtest",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node ./tests/test.js"
+  },
+  "author": "CyberSepo",
+  "license": "ISC",
+  "description": "simple test code for github actions",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  }
+}
