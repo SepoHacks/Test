@@ -39,3 +39,6 @@ jobs:
 
     - name: Run tests
       run: npm test
+
+    - name: Check Docker secrets
+      run: echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
