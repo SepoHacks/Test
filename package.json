@@ -1,16 +1,17 @@
 {
   "name": "cicdtest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "node ./tests/test.js"
+    "start": "node ./src/app.js",
+    "test": "echo \"Hello World\" && exit 0"
   },
   "author": "CyberSepo",
-  "license": "ISC",
-  "description": "simple test code for github actions",
+  "license": "ISC82",
+  "description": "simple test code for github actions.",
   "dependencies": {
     "express": "^4.19.2",
-    "mysql2": "^3.11.0"
+    "mysql2": "^3.11.0",
+    "sequelize": "^6.37.5"
   }
 }

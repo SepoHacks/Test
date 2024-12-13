@@ -1,13 +1,37 @@
-version: '3.8'
-
 services:
-  db:
+  app:
+    build: .
+    container_name: test_app
+    environment:
+      DB_HOST: database
+      DB_USER: sepo
+      DB_PASSWORD: test
+      DB_NAME: test
+    networks:
+      - test-net
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+
+  database:
     image: mysql:8
-    container_name: mysql_db
+    container_name: test_db
     environment:
       MYSQL_ROOT_PASSWORD: test
       MYSQL_DATABASE: test
+      MYSQL_USER: sepo
+      MYSQL_PASSWORD: test
     volumes:
       - ./mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
+    networks:
+      - test-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "database"]
+      interval: 2s
+      retries: 10
+
+
+networks:
+  test-net:
