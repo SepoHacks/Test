@@ -48,4 +48,6 @@ const startApp = async () => {
   }
 };
 
+console.log("E");
+
 startApp();
