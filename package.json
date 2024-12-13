@@ -7,7 +7,7 @@
     "test": "node ./tests/test.js"
   },
   "author": "CyberSepo",
-  "license": "ISC",
+  "license": "ISC8",
   "description": "simple test code for github actions.",
   "dependencies": {
     "express": "^4.19.2",
