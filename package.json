@@ -7,7 +7,7 @@
     "test": "echo \"Hello World\" && exit 0"
   },
   "author": "CyberSepo",
-  "license": "ISC2",
+  "license": "ISC82",
   "description": "simple test code for github actions.",
   "dependencies": {
     "express": "^4.19.2",
