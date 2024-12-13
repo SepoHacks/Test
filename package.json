@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./src/app.js",
-    "test": "echo \"Hello\" && exit 0"
+    "test": "echo \"Hello World\" && exit 0"
   },
   "author": "CyberSepo",
   "license": "ISC",
